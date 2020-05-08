@@ -4,11 +4,11 @@
 
 import 'package:flutter/material.dart';
 
-// TODO: Check if we need to import anything
 import 'category.dart';
+import 'unit.dart';
 
-// TODO: Define any constants
 final _backgroundColor = Colors.green[100];
+
 /// Category Route (screen).
 ///
 /// This is the 'home' screen of the Unit Converter. It shows a header and
@@ -41,6 +41,9 @@ class CategoryRoute extends StatelessWidget {
     Colors.red,
   ];
 
+  /// Makes the correct number of rows for the list view.
+  ///
+  /// For portrait, we use a [ListView].
   Widget _buildCategoryWidgets(List<Widget> categories) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) => categories[index],
@@ -48,28 +51,36 @@ class CategoryRoute extends StatelessWidget {
     );
   }
 
+  /// Returns a list of mock [Unit]s.
+  List<Unit> _retrieveUnitList(String categoryName) {
+    return List.generate(10, (int i) {
+      i += 1;
+      return Unit(
+        name: '$categoryName Unit $i',
+        conversion: i.toDouble(),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Create a list of the eight Categories, using the names and colors
-    // from above. Use a placeholder icon, such as `Icons.cake` for each
-    // Category. We'll add custom icons later.
     final categories = <Category>[];
 
-    for ( var i = 0; i < _categoryNames.length; i++) {
+    for (var i = 0; i < _categoryNames.length; i++) {
       categories.add(Category(
         name: _categoryNames[i],
         color: _baseColors[i],
         iconLocation: Icons.cake,
+        units: _retrieveUnitList(_categoryNames[i]),
       ));
     }
-    // TODO: Create a list view of the Categories
+
     final listView = Container(
       color: _backgroundColor,
       padding: EdgeInsets.symmetric(horizontal: 8.0),
       child: _buildCategoryWidgets(categories),
     );
 
-    // TODO: Create an App Bar
     final appBar = AppBar(
       elevation: 0.0,
       title: Text(
