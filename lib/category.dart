@@ -63,6 +63,9 @@ class Category extends StatelessWidget {
             color: color,
             units: units,
           ),
+          // This prevents the attempt to resize the screen when the keyboard
+          // is opened
+          resizeToAvoidBottomPadding: false,
         );
       },
     ));
@@ -83,8 +86,8 @@ class Category extends StatelessWidget {
         height: _rowHeight,
         child: InkWell(
           borderRadius: _borderRadius,
-          highlightColor: color,
-          splashColor: color,
+          highlightColor: color['highlight'],
+          splashColor: color['splash'],
           // We can use either the () => function() or the () { function(); }
           // syntax.
           onTap: () => _navigateToConverter(context),
